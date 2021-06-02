@@ -18,13 +18,13 @@ import json
 
 
 #address = '서울 중구 한강대로 405 서울역'
-address = '경기도 시흥시 정왕동 2325-12'
+#address = '경기도 시흥시 정왕동 2325-12'
 
-#1
-url = 'https://dapi.kakao.com/v2/local/search/address.json?&query=' + address
-result = requests.get(urlparse(url).geturl(), headers={'Authorization': 'KakaoAK 3a2cd5484e1ba21401ec8685b0f9f694'}).json()
-print(result)
-match_first = result['documents'][0]['address']
-lat = float(match_first['y'])
-lng = float(match_first['x'])
-print(lat, lng)
+def getCoord(address):
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?&query=' + address
+    result = requests.get(urlparse(url).geturl(), headers={'Authorization': 'KakaoAK 3a2cd5484e1ba21401ec8685b0f9f694'}).json()
+    print(result)
+    match_first = result['documents'][0]['address']
+    lat = float(match_first['y'])
+    lng = float(match_first['x'])
+    return lat, lng

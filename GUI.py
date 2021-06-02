@@ -1,5 +1,10 @@
 from tkinter import *
 from tkinter import font
+from findAddress import *
+from Map import *
+from Tourspot import searchTourSpot
+
+
 import tkinter.messagebox
 window = Tk()
 window.geometry("600x1600")
@@ -17,59 +22,53 @@ def InitEndText():
     MainText.place(x=405)
 
 def InitInputLabelStart():
-    global InputLabel
+    global InputLabelS
     TempFont = font.Font(window, size=15, weight='bold', family = 'Consolas')
-    InputLabel = Entry(window, font = TempFont, width=10, borderwidth=12, relief='ridge')
-    InputLabel.pack()
-    InputLabel.place(x=10, y=40)
+    InputLabelS = Entry(window, font = TempFont, width=10, borderwidth=12, relief='ridge')
+    InputLabelS.pack()
+    InputLabelS.place(x=10, y=40)
 
 def InitInputLabelEnd():
-    global InputLabel
+    global InputLabelE
     TempFont = font.Font(window, size=15, weight='bold', family = 'Consolas')
-    InputLabel = Entry(window, font = TempFont, width=10, borderwidth=12, relief='ridge')
-    InputLabel.pack()
-    InputLabel.place(x=400, y=40)
+    InputLabelE = Entry(window, font = TempFont, width=10, borderwidth=12, relief='ridge')
+    InputLabelE.pack()
+    InputLabelE.place(x=400, y=40)
 
 def InitStartSearchButton():
     TempFont = font.Font(window, size=12, weight='bold', family='Consolas')
-    SearchButton = Button(window, font=TempFont, text='검색', command='SearchButtonAction')
+    SearchButton = Button(window, font=TempFont, text='검색', command=StartSearchButtonAction)
     SearchButton.pack()
     SearchButton.place(x=150, y=50)
 
-def StartSearchButtonAction():
-    pass
-
 def InitEndSearchButton():
     TempFont = font.Font(window, size=12, weight='bold', family='Consolas')
-    SearchButton = Button(window, font=TempFont, text='검색', command='SearchButtonAction')
+    SearchButton = Button(window, font=TempFont, text='검색', command=EndSearchButtonAction)
     SearchButton.pack()
     SearchButton.place(x=540, y=50)
 
+
+def StartSearchButtonAction():
+    print(InputLabelS.get())
+    address = findAddress(InputLabelS.get())
+    y,x = getCoord(str(address))
+    print(x)
+    searchTourSpot(str(x), str(y), 3000)
+
+
 def EndSearchButtonAction():
-    pass
+    print(InputLabelS.get())
+    address = findAddress(InputLabelE.get())
+    y,x = getCoord(str(address))
+    print(x)
+    searchTourSpot(str(x), str(y), 3000)
 
 def SendTelegramButton():
     TempFont = font.Font(window, size=12, weight='bold', family='Consolas')
-    SearchButton = Button(window, font=TempFont, text='텔레그램으로 보내기', command='SearchButtonAction',
+    SearchButton = Button(window, font=TempFont, text='텔레그램으로 보내기', command='SearchButtonAction',#커맨드 수정 필요
                           width=30, height=3)
     SearchButton.pack()
     SearchButton.place(x=200, y=710)
-
-'''
-def InitRenderText():
-    global RenderText
-    RenderTextScrollbar = Scrollbar(window)
-    RenderTextScrollbar.pack()
-    RenderTextScrollbar.place(x=375, y=200)
-    TempFont = font.Font(window, size=10, family='Consolas')
-    RenderText = Text(window, width=49, height=27, borderwidth=12, relief='ridge', yscrollcommand=RenderTextScrollbar.set)
-    RenderText.pack()
-    RenderText.place(x=10, y=215)
-    RenderTextScrollbar.config(command=RenderText.yview)
-    RenderTextScrollbar.pack(side=RIGHT, fill=BOTH)
-
-    RenderText.configure(state='disabled')
-'''
 
 def InitMapCanvas():
     canvas = Canvas(window, bg='white', width=500, height=600)
@@ -77,14 +76,13 @@ def InitMapCanvas():
     canvas.place(x=50, y=100)
 
 InitStartSearchButton()
-StartSearchButtonAction()
 InitEndSearchButton()
-EndSearchButtonAction()
 InitInputLabelStart()
 InitInputLabelEnd()
 InitStartText()
 InitEndText()
 InitMapCanvas()
-SendTelegramButton()
+print("a")
+
 
 window.mainloop()
