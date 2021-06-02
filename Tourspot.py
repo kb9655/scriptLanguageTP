@@ -20,14 +20,14 @@ def searchTourSpot(x, y, rad):
 def extractTourSpotData(strXml): #strXml은 OpenAPI 검색 결과 XML 문자열
     from xml.etree import ElementTree
     tree = ElementTree.fromstring(strXml)
-    print(strXml)
+    #print(strXml)
 
     d = {}
     l = []
     # Book 엘리먼트를 가져옵니다.
     itemElements = tree.iter("item")    # item 엘리먼트 리스트 추출
-    print(itemElements)
-    print("1")
+   #print(itemElements)
+    #print("1")
 
     for item in itemElements:
         addr = item.find("addr1")
