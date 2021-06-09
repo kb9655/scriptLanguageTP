@@ -16,7 +16,8 @@ def searchParmacy(x, y, rad):
     req = conn.getresponse()
 
     l = extractParmacyData(req.read().decode('utf-8'))
-    print(l)
+
+    return l
 
 
 def extractParmacyData(strXml): #strXml은 OpenAPI 검색 결과 XML 문자열

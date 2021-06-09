@@ -8,7 +8,7 @@ def searchTourSpot(x, y, rad, cTId):
     yPos = str(y) #"37.60765568913871"
     radius = str(rad) #"3000"
     contentTypeId = cTId
-    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey="+serviceKey+"&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId="+contentTypeId+"&mapX="+xPos+"&mapY="+yPos+"&radius="+radius+"&listYN=Y")
+    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey="+serviceKey+"&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId="+contentTypeId+"&mapX="+xPos+"&mapY="+yPos+"&radius="+radius+"&listYN=Y")
     req = conn.getresponse()
 
     l = extractTourSpotData(req.read().decode('utf-8'))
@@ -52,17 +52,17 @@ def searchTourSpotNumbers(x, y, rad):
     l = []
 
     contentTypeId = '15'
-    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey=" + serviceKey + "&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=" + contentTypeId + "&mapX=" + xPos + "&mapY=" + yPos + "&radius=" + radius + "&listYN=N")
+    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey=" + serviceKey + "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=" + contentTypeId + "&mapX=" + xPos + "&mapY=" + yPos + "&radius=" + radius + "&listYN=N")
     req = conn.getresponse()
     l.append(extractNumberOfTourSpot(req.read().decode('utf-8')))
 
     contentTypeId = '14'
-    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey=" + serviceKey + "&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=" + contentTypeId + "&mapX=" + xPos + "&mapY=" + yPos + "&radius=" + radius + "&listYN=N")
+    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey=" + serviceKey + "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=" + contentTypeId + "&mapX=" + xPos + "&mapY=" + yPos + "&radius=" + radius + "&listYN=N")
     req = conn.getresponse()
     l.append(extractNumberOfTourSpot(req.read().decode('utf-8')))
 
     contentTypeId = '12'
-    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey=" + serviceKey + "&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=" + contentTypeId + "&mapX=" + xPos + "&mapY=" + yPos + "&radius=" + radius + "&listYN=N")
+    conn.request("GET","/openapi/service/rest/KorService/locationBasedList?serviceKey=" + serviceKey + "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=" + contentTypeId + "&mapX=" + xPos + "&mapY=" + yPos + "&radius=" + radius + "&listYN=N")
     req = conn.getresponse()
     l.append(extractNumberOfTourSpot(req.read().decode('utf-8')))
 
