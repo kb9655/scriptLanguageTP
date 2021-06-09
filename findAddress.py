@@ -15,8 +15,6 @@ import json
 #searchTourSpot(xPos, yPos, radius)
 #3a2cd5484e1ba21401ec8685b0f9f694
 
-
-
 #address = '서울 중구 한강대로 405 서울역'
 #address = '경기도 시흥시 정왕동 2325-12'
 #keyword = '정왕역'
@@ -29,5 +27,16 @@ def findAddress(keyword):
     #print(match_first)
     return match_first
 
+#address = '서울 중구 한강대로 405 서울역'
+#address = '경기도 시흥시 정왕동 2325-12'
+
+def getCoord(address):
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?&query=' + address
+    result = requests.get(urlparse(url).geturl(), headers={'Authorization': 'KakaoAK 3a2cd5484e1ba21401ec8685b0f9f694'}).json()
+    print(result)
+    match_first = result['documents'][0]['address']
+    lat = float(match_first['y'])
+    lng = float(match_first['x'])
+    return lat, lng
 
 #https://apis.map.kakao.com/android/guide/#urlscheme_route

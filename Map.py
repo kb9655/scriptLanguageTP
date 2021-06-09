@@ -1,30 +1,33 @@
-import http.client
-import urllib
-from urllib.parse import urlparse
-import requests
-import json
+from tkinter import *
+import threading
+import sys
+from tkinter import messagebox
+# pip install folium
+import folium
+# pip install cefpython3==66.1
+from cefpython3 import cefpython as cef
 
-#s="서울역"
-#findStation(s)
+# cef모듈로 브라우저 실행
+def showMap(frame):
+    sys.excepthook = cef.ExceptHook
+    window_info = cef.WindowInfo(frame.winfo_id())
+    window_info.SetAsChild(frame.winfo_id(), [0,0,800,600])
+    cef.Initialize()
+    browser = cef.CreateBrowserSync(window_info, url='file:///map.html')
+    cef.MessageLoop()
 
-#xPos = 126.981611
-#yPos = 37.568477
-#radius = 1000
+def Pressed():
+    # 지도 저장
+    # 위도 경도 지정
+    m = folium.Map(location=[37.3402849, 126.7313189], zoom_start=13)
+    # 마커 지정
+    folium.Marker([37.3402849, 126.7313189], popup='한국산업기술대').add_to(m)
+    # html 파일로 저장
+    m.save('map.html')
 
-#searchParmacy(xPos, yPos, radius)
-#searchTourSpot(xPos, yPos, radius)
-#3a2cd5484e1ba21401ec8685b0f9f694
+    # 브라우저를 위한 쓰레드 생성
+    thread = threading.Thread(target=showMap, args=(frame,))
+    thread.daemon = True
+    thread.start()
 
 
-
-#address = '서울 중구 한강대로 405 서울역'
-#address = '경기도 시흥시 정왕동 2325-12'
-
-def getCoord(address):
-    url = 'https://dapi.kakao.com/v2/local/search/address.json?&query=' + address
-    result = requests.get(urlparse(url).geturl(), headers={'Authorization': 'KakaoAK 3a2cd5484e1ba21401ec8685b0f9f694'}).json()
-    print(result)
-    match_first = result['documents'][0]['address']
-    lat = float(match_first['y'])
-    lng = float(match_first['x'])
-    return lat, lng
